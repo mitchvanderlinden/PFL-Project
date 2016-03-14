@@ -108,7 +108,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -124,9 +123,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIError.cs" />
-    <Compile Include="APIMetaData.cs" />
+    <Compile Include="Data\APIError.cs" />
+    <Compile Include="Data\APIMetaData.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Data\Order\Order.cs" />
+    <Compile Include="Data\Order\OrderCustomer.cs" />
+    <Compile Include="Data\Order\OrderItem.cs" />
+    <Compile Include="Data\Order\OrderShipment.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -134,9 +137,9 @@
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Product.cs" />
-    <Compile Include="ProductListResponse.cs" />
-    <Compile Include="ProductListResults.cs" />
+    <Compile Include="Data\Product\Product.cs" />
+    <Compile Include="Data\Product\ProductListResponse.cs" />
+    <Compile Include="Data\Product\ProductListResults.cs" />
     <Compile Include="ProductView.ascx.cs">
       <DependentUpon>ProductView.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -146,6 +149,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
