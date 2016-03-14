@@ -11,7 +11,14 @@ namespace PFLOrderApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Client client = new Client();
+            
+        }
+
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Bleh");
+
+            Client client = Client.GetInstance();
             List<Product> products = client.GetProducts();
             Table mainTable = new Table();
             mainTable.HorizontalAlign = HorizontalAlign.Center;
@@ -34,24 +41,8 @@ namespace PFLOrderApp
                 row.Cells.Add(cell);
                 mainTable.Rows.Add(row);
             }
-
-            Button b = new Button();
-            b.Text = "HAHAHA";
-            b.Click += new EventHandler(Button_Click);
-            b.Command += new CommandEventHandler(Button_Click);
-
-            mainform.Controls.Add(b);
             mainform.Controls.Add(mainTable);
-        }
-
-        protected void Page_Init(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void Button_Click(object sender, EventArgs e)
-        {
-            Response.Write("CLIIIICKED");
+            //client.SendTrialOrder(products[0].productID);
         }
     }
 }

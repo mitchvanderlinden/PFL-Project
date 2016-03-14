@@ -9,7 +9,7 @@
     <title></title>
 </head>
 <body>
-    <form id="mainform" runat="server" onsubmit="return false">
+    <form id="mainform" runat="server">
     <div>
      
     </div>

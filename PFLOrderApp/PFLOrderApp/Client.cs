@@ -5,13 +5,15 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net;
+using PFLOrderApp.Data.Order;
 
 namespace PFLOrderApp
 {
     public class Client
     {
 
-        private HttpClient client;
+        private HttpClient httpClient;
+        private static Client client;
 
         private const string apiKey = "136085";
         private const string username = "miniproject";
@@ -19,12 +21,21 @@ namespace PFLOrderApp
 
         private const string baseUri = "https://testapi.pfl.com/";
 
-        public Client()
+        public static Client GetInstance()
         {
-            client = new HttpClient();
-            client.BaseAddress = new Uri(baseUri);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Encode(username, password));
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if(client == null)
+            {
+                client = new Client();
+            }
+            return client;
+        }
+
+        private Client()
+        {
+            httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(baseUri);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", base64Encode(username, password));
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         private string base64Encode(string user, string pass)
@@ -36,9 +47,17 @@ namespace PFLOrderApp
         public List<Product> GetProducts()
         {
             string fullUri = String.Format("products?apikey={0}", apiKey);
-            HttpResponseMessage response = client.GetAsync(fullUri).Result;
+            HttpResponseMessage response = httpClient.GetAsync(fullUri).Result;
             var productResults = response.Content.ReadAsAsync<ProductListResponse>().Result;
             return productResults.results.data;
+        }
+
+        public void CreateOrder(Order o)
+        {
+            string fullUri = String.Format("orders?apikey={0}", apiKey);
+            HttpResponseMessage response = httpClient.PostAsJsonAsync(fullUri, o).Result;
+            var orderResponse = response.Content.ReadAsStringAsync().Result;
+            System.Diagnostics.Debug.WriteLine("Result: " + orderResponse);
         }
 
     }
