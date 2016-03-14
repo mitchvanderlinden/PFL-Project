@@ -9,9 +9,9 @@
     <title></title>
 </head>
 <body>
-    <form id="mainform" runat="server">
+    <form id="mainform" runat="server" onsubmit="return false">
     <div>
-
+     
     </div>
     </form>
 </body>
