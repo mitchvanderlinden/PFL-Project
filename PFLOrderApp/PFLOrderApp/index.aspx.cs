@@ -14,16 +14,20 @@ namespace PFLOrderApp
             
         }
 
+        // Initialize the main page
         protected void Page_Init(object sender, EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Bleh");
+            // For debugging purposes, print when the page posts back
+            System.Diagnostics.Debug.WriteLine("Page Load");
 
+            // Get the Client instance and initialize the main page table
             Client client = Client.GetInstance();
             List<Product> products = client.GetProducts();
             Table mainTable = new Table();
             mainTable.HorizontalAlign = HorizontalAlign.Center;
             mainTable.BorderWidth = 5;
 
+            // Create a new ProductView control for each available product
             foreach (Product prod in products)
             {
                 ProductView view = new ProductView();
@@ -41,8 +45,8 @@ namespace PFLOrderApp
                 row.Cells.Add(cell);
                 mainTable.Rows.Add(row);
             }
+            // Add the table to the page
             mainform.Controls.Add(mainTable);
-            //client.SendTrialOrder(products[0].productID);
         }
     }
 }

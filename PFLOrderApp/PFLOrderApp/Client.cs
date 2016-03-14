@@ -9,6 +9,7 @@ using PFLOrderApp.Data.Order;
 
 namespace PFLOrderApp
 {
+    // Client utilizes the Singleton Pattern
     public class Client
     {
 
@@ -21,6 +22,7 @@ namespace PFLOrderApp
 
         private const string baseUri = "https://testapi.pfl.com/";
 
+        // Returns the singleton client
         public static Client GetInstance()
         {
             if(client == null)
@@ -30,6 +32,7 @@ namespace PFLOrderApp
             return client;
         }
 
+        // Private constructor
         private Client()
         {
             httpClient = new HttpClient();
@@ -38,12 +41,14 @@ namespace PFLOrderApp
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        // Encode the user:password combo
         private string base64Encode(string user, string pass)
         {
             string credentials = String.Format("{0}:{1}", user, pass);
             return Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(credentials));
         }
 
+        // Retrieve a list of all products associated with this api
         public List<Product> GetProducts()
         {
             string fullUri = String.Format("products?apikey={0}", apiKey);
@@ -52,12 +57,13 @@ namespace PFLOrderApp
             return productResults.results.data;
         }
 
-        public void CreateOrder(Order o)
+        // Post a new order
+        public HttpResponseMessage CreateOrder(Order o)
         {
             string fullUri = String.Format("orders?apikey={0}", apiKey);
             HttpResponseMessage response = httpClient.PostAsJsonAsync(fullUri, o).Result;
-            var orderResponse = response.Content.ReadAsStringAsync().Result;
-            System.Diagnostics.Debug.WriteLine("Result: " + orderResponse);
+            System.Diagnostics.Debug.WriteLine(response.Content.ReadAsStringAsync().Result);
+            return response;
         }
 
     }

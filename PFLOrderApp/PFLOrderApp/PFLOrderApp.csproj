@@ -126,9 +126,11 @@
     <Compile Include="Data\APIError.cs" />
     <Compile Include="Data\APIMetaData.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="Data\Order\OrderResults.cs" />
     <Compile Include="Data\Order\Order.cs" />
     <Compile Include="Data\Order\OrderCustomer.cs" />
     <Compile Include="Data\Order\OrderItem.cs" />
+    <Compile Include="Data\Order\OrderResponse.cs" />
     <Compile Include="Data\Order\OrderShipment.cs" />
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
